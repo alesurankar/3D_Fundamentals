@@ -49,11 +49,11 @@ public:
 		Mat2_ i = { (T)1.0,(T)0.0,(T)0.0,(T)1.0 };
 		return i;
 	}
-	static Mat2_ Rotation( T theta )
+	static Mat2_ Rotation(T theta)
 	{
-		const T cosTheta = cos( theta );
-		const T sinTheta = sin( theta );
-		Mat2_ r = { 
+		const T cosTheta = static_cast<T>(cos(theta));
+		const T sinTheta = static_cast<T>(sin(theta));
+		Mat2_ r = {
 			cosTheta,	sinTheta,
 			-sinTheta,	cosTheta };
 		return r;
