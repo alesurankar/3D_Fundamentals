@@ -4,32 +4,32 @@
 
 
 template < typename T >
-class Rect_
+class _Rect
 {
 public:
-	Rect_() {}
-	Rect_(T top, T bottom, T left, T right)
+	_Rect() {}
+	_Rect(T top, T bottom, T left, T right)
 		:
 		top(top),
 		bottom(bottom),
 		left(left),
 		right(right)
 	{}
-	Rect_(const Rect_& rect)
+	_Rect(const _Rect& rect)
 		:
 		top(rect.top),
 		bottom(rect.bottom),
 		left(rect.left),
 		right(rect.right)
 	{}
-	Rect_(Vec2_<T> p0, Vec2_<T> p1)
+	_Rect(_Vec2<T> p0, _Vec2<T> p1)
 		:
-		Rect_(min(p0.y, p1.y),
+		_Rect(min(p0.y, p1.y),
 			max(p0.y, p1.y),
 			min(p0.x, p1.x),
 			max(p0.x, p1.x))
 	{}
-	void Translate(Vec2_<T> d)
+	void Translate(_Vec2<T> d)
 	{
 		Translate(d.x, d.y);
 	}
@@ -41,11 +41,11 @@ public:
 		right += dx;
 	}
 	template <typename T2>
-	operator Rect_<T2>() const
+	operator _Rect<T2>() const
 	{
 		return { (T2)top,(T2)bottom,(T2)left,(T2)right };
 	}
-	void ClipTo(const Rect_& rect)
+	void ClipTo(const _Rect& rect)
 	{
 		top = std::max(top, rect.top);
 		bottom = std::min(bottom, rect.bottom);
@@ -60,18 +60,18 @@ public:
 	{
 		return bottom - top;
 	}
-	bool Overlaps(const Rect_& rect) const
+	bool Overlaps(const _Rect& rect) const
 	{
 		return top < rect.bottom && bottom > rect.top &&
 			left < rect.right && right > rect.left;
 	}
 	template <typename T2>
-	bool Contains(Vec2_<T2> p) const
+	bool Contains(_Vec2<T2> p) const
 	{
 		return p.y >= top && p.y <= bottom && p.x >= left && p.x <= right;
 	}
 	template <typename T2>
-	bool Contains(Rect_<T2> p) const
+	bool Contains(_Rect<T2> p) const
 	{
 		return p.top >= top && p.bottom <= bottom && p.left >= left && p.right <= right;
 	}
@@ -82,5 +82,5 @@ public:
 	T right;
 };
 
-using RectI = Rect_<int>;
-using RectF = Rect_<float>;
+using RectI = _Rect<int>;
+using RectF = _Rect<float>;

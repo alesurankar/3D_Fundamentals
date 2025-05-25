@@ -3,15 +3,15 @@
 
 
 template <typename T>
-class Mat2_
+class _Mat2
 {
 public:
-	Mat2_& operator=( const Mat2_& rhs )
+	_Mat2& operator=( const _Mat2& rhs )
 	{
 		memcpy( elements,rhs.elements,sizeof( elements ) );
 		return *this;
 	}
-	Mat2_& operator*=( T rhs )
+	_Mat2& operator*=( T rhs )
 	{
 		for( auto& row : elements )
 		{
@@ -22,14 +22,14 @@ public:
 		}
 		return *this;
 	}
-	Mat2_ operator*( T rhs ) const
+	_Mat2 operator*( T rhs ) const
 	{
-		Mat2_ result = *this;
+		_Mat2 result = *this;
 		return result *= rhs;
 	}
-	Mat2_ operator*( const Mat2_& rhs ) const
+	_Mat2 operator*( const _Mat2& rhs ) const
 	{
-		Mat2_ result;
+		_Mat2 result;
 		for( size_t j = 0; j < 2; j++ )
 		{
 			for( size_t k = 0; k < 2; k++ )
@@ -44,23 +44,23 @@ public:
 		}
 		return result;
 	}
-	static Mat2_ Identity()
+	static _Mat2 Identity()
 	{
-		Mat2_ i = { (T)1.0,(T)0.0,(T)0.0,(T)1.0 };
+		_Mat2 i = { (T)1.0,(T)0.0,(T)0.0,(T)1.0 };
 		return i;
 	}
-	static Mat2_ Rotation(T theta)
+	static _Mat2 Rotation(T theta)
 	{
 		const T cosTheta = static_cast<T>(cos(theta));
 		const T sinTheta = static_cast<T>(sin(theta));
-		Mat2_ r = {
+		_Mat2 r = {
 			cosTheta,	sinTheta,
 			-sinTheta,	cosTheta };
 		return r;
 	}
-	static Mat2_ Scaling( T factor )
+	static _Mat2 Scaling( T factor )
 	{
-		Mat2_ s = { factor,(T)0.0,(T)0.0,factor };
+		_Mat2 s = { factor,(T)0.0,(T)0.0,factor };
 		return s;
 	}
 public:
@@ -69,13 +69,13 @@ public:
 };
 
 template<typename T>
-Vec2_<T>& operator*=( Vec2_<T>& lhs,const Mat2_<T>& rhs )
+_Vec2<T>& operator*=( _Vec2<T>& lhs,const _Mat2<T>& rhs )
 {
 	return lhs = lhs * rhs;
 }
 
 template<typename T>
-Vec2_<T> operator*( const Vec2_<T>& lhs,const Mat2_<T>& rhs )
+_Vec2<T> operator*( const _Vec2<T>& lhs,const _Mat2<T>& rhs )
 {
 	return { 
 		lhs.x * rhs.elements[0][0] + lhs.y * rhs.elements[1][0],
@@ -83,5 +83,5 @@ Vec2_<T> operator*( const Vec2_<T>& lhs,const Mat2_<T>& rhs )
 	};
 }
 
-typedef Mat2_<float> Mat2;
-typedef Mat2_<double> Mad2;
+typedef _Mat2<float> Mat2;
+typedef _Mat2<double> Mad2;
