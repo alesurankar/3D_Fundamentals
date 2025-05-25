@@ -5,17 +5,22 @@ template <typename T>
 class Vec2_
 {
 public:
-public:
-	Vec2_() {}
+	Vec2_() 
+	{}
 	Vec2_(T x, T y)
-		: x(x), y(y)
+		: 
+		x(x), 
+		y(y)
 	{}
 	template<typename T2>
 	Vec2_(T2 x, T2 y)
-		: x(static_cast<T>(x)), y(static_cast<T>(y))
+		: 
+		x(static_cast<T>(x)), 
+		y(static_cast<T>(y))
 	{}
 	Vec2_(const Vec2_& vect)
-		: Vec2_(vect.x, vect.y)
+		: 
+		Vec2_(vect.x, vect.y)
 	{}
 
 	template <typename T2>
