@@ -1,26 +1,55 @@
 #pragma once
-#include <cmath>
+#include "MyMath.h"
 
-template<typename T>
-
+template <typename T>
 class Vec2_
 {
 public:
-	Vec2_() = default;
-	Vec2_(T x_in, T y_in)
+	Vec2_() {}
+	Vec2_(T x, T y)
 		:
-		x(x_in),
-		y(y_in)
+		x(x),
+		y(y)
 	{}
-	template<typename S>
-	explicit Vec2_(const Vec2_<S>& src)
+	Vec2_(const Vec2_& vect)
 		:
-		x((T)src.x),
-		y((T)src.y)
+		Vec2_(vect.x, vect.y)
 	{}
-	Vec2_ operator+(const Vec2_& rhs) const
+	template <typename T2>
+	explicit operator Vec2_<T2>() const
 	{
-		return Vec2_(*this) += rhs;
+		return { (T2)x,(T2)y };
+	}
+	T		LenSq() const
+	{
+		return sq(*this);
+	}
+	T		Len() const
+	{
+		return sqrt(LenSq());
+	}
+	Vec2_& Normalize()
+	{
+		const T length = Len();
+		x /= length;
+		y /= length;
+		return *this;
+	}
+	Vec2_	GetNormalized() const
+	{
+		Vec2_ norm = *this;
+		norm.Normalize();
+		return norm;
+	}
+	Vec2_	operator-() const
+	{
+		return Vec2_(-x, -y);
+	}
+	Vec2_& operator=(const Vec2_& rhs)
+	{
+		x = rhs.x;
+		y = rhs.y;
+		return *this;
 	}
 	Vec2_& operator+=(const Vec2_& rhs)
 	{
@@ -28,66 +57,49 @@ public:
 		y += rhs.y;
 		return *this;
 	}
-	Vec2_ operator-(const Vec2_& rhs) const
-	{
-		return Vec2_(*this) -= rhs;
-	}
 	Vec2_& operator-=(const Vec2_& rhs)
 	{
 		x -= rhs.x;
 		y -= rhs.y;
 		return *this;
 	}
-	Vec2_ operator*(T rhs) const
+	T		operator*(const Vec2_& rhs) const
 	{
-		return Vec2_(*this) *= rhs;
+		return x * rhs.x + y * rhs.y;
 	}
-	Vec2_& operator*=(T rhs)
+	Vec2_	operator+(const Vec2_& rhs) const
+	{
+		return Vec2_(*this) += rhs;
+	}
+	Vec2_	operator-(const Vec2_& rhs) const
+	{
+		return Vec2_(*this) -= rhs;
+	}
+	Vec2_& operator*=(const T& rhs)
 	{
 		x *= rhs;
 		y *= rhs;
 		return *this;
 	}
-	Vec2_ operator/(T rhs) const
+	Vec2_	operator*(const T& rhs) const
 	{
-		return Vec2_(*this) /= rhs;
+		return Vec2_(*this) *= rhs;
 	}
-	Vec2_& operator/=(T rhs)
+	Vec2_& operator/=(const T& rhs)
 	{
 		x /= rhs;
 		y /= rhs;
 		return *this;
 	}
-	Vec2_ operator-() const
+	Vec2_	operator/(const T& rhs) const
 	{
-		return Vec2_(-x, -y);
+		return Vec2_(*this) /= rhs;
 	}
-	T GetLength() const
-	{
-		return (T)std::sqrt(GetLengthSq());
-	}
-	T GetLengthSq() const
-	{
-		return x * x + y * y;
-	}
-	Vec2_& Normalize()
-	{
-		return *this = GetNormalized();
-	}
-	Vec2_ GetNormalized() const
-	{
-		const T len = GetLength();
-		if (len != (T)0)
-		{
-			return *this / len;
-		}
-		return *this;
-	}
-	bool operator==(const Vec2_& rhs) const
+	bool	operator==(const Vec2_& rhs) const
 	{
 		return x == rhs.x && y == rhs.y;
 	}
-	bool operator!=(const Vec2_& rhs) const
+	bool	operator!=(const Vec2_& rhs) const
 	{
 		return !(*this == rhs);
 	}
@@ -97,4 +109,5 @@ public:
 };
 
 using Vec2 = Vec2_<float>;
+using Ved2 = Vec2_<double>;
 using Vei2 = Vec2_<int>;
