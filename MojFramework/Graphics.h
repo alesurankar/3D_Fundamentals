@@ -1,10 +1,15 @@
 #pragma once
+#include "GDIPlusManager.h"
 #include "MyWin.h"
 #include <d3d11.h>
 #include <wrl.h>
 #include "MyException.h"
+#include "Surface.h"
 #include "Colors.h"
 #include "Vec2.h"
+
+
+#define MY_GFX_EXCEPTION( hr,note ) Graphics::Exception( hr,note,_CRT_WIDE(__FILE__),__LINE__ )
 
 class Graphics
 {
@@ -32,7 +37,7 @@ public:
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	void EndFrame();
-	void BeginFrame(); 
+	void BeginFrame();
 	void DrawLine(const Vec2& p1, const Vec2& p2, Color c)
 	{
 		DrawLine(p1.x, p1.y, p2.x, p2.y, c);
@@ -42,9 +47,13 @@ public:
 	{
 		PutPixel(x, y, { unsigned char(r),unsigned char(g),unsigned char(b) });
 	}
-	void PutPixel(int x, int y, Color c);
+	void PutPixel(int x, int y, Color c)
+	{
+		sysBuffer.PutPixel(x, y, c);
+	}
 	~Graphics();
 private:
+	GDIPlusManager										gdipMan;
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext>			pImmediateContext;
@@ -57,8 +66,8 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout>			pInputLayout;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState>			pSamplerState;
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
-	Color* pSysBuffer = nullptr;
+	Surface												sysBuffer;
 public:
-	static constexpr int ScreenWidth = 800;
-	static constexpr int ScreenHeight = 600;
+	static constexpr unsigned int ScreenWidth = 800u;
+	static constexpr unsigned int ScreenHeight = 600u;
 };

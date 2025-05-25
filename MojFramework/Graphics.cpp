@@ -17,11 +17,11 @@ namespace FramebufferShaders
 
 #pragma comment( lib,"d3d11.lib" )
 
-#define My_GFX_EXCEPTION( hr,note ) Graphics::Exception( hr,note,_CRT_WIDE(__FILE__),__LINE__ )
-
 using Microsoft::WRL::ComPtr;
 
 Graphics::Graphics(HWNDKey& key)
+	:
+	sysBuffer(ScreenWidth, ScreenHeight)
 {
 	assert(key.hWnd != nullptr);
 
@@ -40,10 +40,13 @@ Graphics::Graphics(HWNDKey& key)
 	sd.SampleDesc.Quality = 0;
 	sd.Windowed = TRUE;
 
+	D3D_FEATURE_LEVEL	featureLevelsRequested = D3D_FEATURE_LEVEL_9_1;
+	UINT				numLevelsRequested = 1;
+	D3D_FEATURE_LEVEL	featureLevelsSupported;
 	HRESULT				hr;
 	UINT				createFlags = 0u;
-#ifdef My_USE_D3D_DEBUG_LAYER
 #ifdef _DEBUG
+#ifdef USE_DIRECT3D_DEBUG_RUNTIME
 	createFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 #endif
@@ -54,16 +57,16 @@ Graphics::Graphics(HWNDKey& key)
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
 		createFlags,
-		nullptr,
-		0,
+		&featureLevelsRequested,
+		numLevelsRequested,
 		D3D11_SDK_VERSION,
 		&sd,
 		&pSwapChain,
 		&pDevice,
-		nullptr,
+		&featureLevelsSupported,
 		&pImmediateContext)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating device and swap chain");
+		throw MY_GFX_EXCEPTION(hr, L"Creating device and swap chain");
 	}
 
 	// get handle to backbuffer
@@ -73,7 +76,7 @@ Graphics::Graphics(HWNDKey& key)
 		__uuidof(ID3D11Texture2D),
 		(LPVOID*)&pBackBuffer)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Getting back buffer");
+		throw MY_GFX_EXCEPTION(hr, L"Getting back buffer");
 	}
 
 	// create a view on backbuffer that we can render to
@@ -82,7 +85,7 @@ Graphics::Graphics(HWNDKey& key)
 		nullptr,
 		&pRenderTargetView)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating render target view on backbuffer");
+		throw MY_GFX_EXCEPTION(hr, L"Creating render target view on backbuffer");
 	}
 
 
@@ -118,7 +121,7 @@ Graphics::Graphics(HWNDKey& key)
 	// create the texture
 	if (FAILED(hr = pDevice->CreateTexture2D(&sysTexDesc, nullptr, &pSysBufferTexture)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating sysbuffer texture");
+		throw MY_GFX_EXCEPTION(hr, L"Creating sysbuffer texture");
 	}
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
@@ -129,7 +132,7 @@ Graphics::Graphics(HWNDKey& key)
 	if (FAILED(hr = pDevice->CreateShaderResourceView(pSysBufferTexture.Get(),
 		&srvDesc, &pSysBufferTextureView)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating view on sysBuffer texture");
+		throw MY_GFX_EXCEPTION(hr, L"Creating view on sysBuffer texture");
 	}
 
 
@@ -142,7 +145,7 @@ Graphics::Graphics(HWNDKey& key)
 		nullptr,
 		&pPixelShader)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating pixel shader");
+		throw MY_GFX_EXCEPTION(hr, L"Creating pixel shader");
 	}
 
 
@@ -155,7 +158,7 @@ Graphics::Graphics(HWNDKey& key)
 		nullptr,
 		&pVertexShader)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating vertex shader");
+		throw MY_GFX_EXCEPTION(hr, L"Creating vertex shader");
 	}
 
 
@@ -179,7 +182,7 @@ Graphics::Graphics(HWNDKey& key)
 	initData.pSysMem = vertices;
 	if (FAILED(hr = pDevice->CreateBuffer(&bd, &initData, &pVertexBuffer)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating vertex buffer");
+		throw MY_GFX_EXCEPTION(hr, L"Creating vertex buffer");
 	}
 
 
@@ -197,7 +200,7 @@ Graphics::Graphics(HWNDKey& key)
 		sizeof(FramebufferShaders::FramebufferVSBytecode),
 		&pInputLayout)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating input layout");
+		throw MY_GFX_EXCEPTION(hr, L"Creating input layout");
 	}
 
 
@@ -213,22 +216,12 @@ Graphics::Graphics(HWNDKey& key)
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	if (FAILED(hr = pDevice->CreateSamplerState(&sampDesc, &pSamplerState)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Creating sampler state");
+		throw MY_GFX_EXCEPTION(hr, L"Creating sampler state");
 	}
-
-	// allocate memory for sysbuffer (16-byte aligned for faster access)
-	pSysBuffer = reinterpret_cast<Color*>(
-		_aligned_malloc(sizeof(Color) * Graphics::ScreenWidth * Graphics::ScreenHeight, 16u));
 }
 
 Graphics::~Graphics()
 {
-	// free sysbuffer memory (aligned free)
-	if (pSysBuffer)
-	{
-		_aligned_free(pSysBuffer);
-		pSysBuffer = nullptr;
-	}
 	// clear the state of the device context before destruction
 	if (pImmediateContext) pImmediateContext->ClearState();
 }
@@ -241,18 +234,11 @@ void Graphics::EndFrame()
 	if (FAILED(hr = pImmediateContext->Map(pSysBufferTexture.Get(), 0u,
 		D3D11_MAP_WRITE_DISCARD, 0u, &mappedSysBufferTexture)))
 	{
-		throw My_GFX_EXCEPTION(hr, L"Mapping sysbuffer");
+		throw MY_GFX_EXCEPTION(hr, L"Mapping sysbuffer");
 	}
-	// setup parameters for copy operation
-	Color* pDst = reinterpret_cast<Color*>(mappedSysBufferTexture.pData);
-	const size_t dstPitch = mappedSysBufferTexture.RowPitch / sizeof(Color);
-	const size_t srcPitch = Graphics::ScreenWidth;
-	const size_t rowBytes = srcPitch * sizeof(Color);
 	// perform the copy line-by-line
-	for (size_t y = 0u; y < Graphics::ScreenHeight; y++)
-	{
-		memcpy(&pDst[y * dstPitch], &pSysBuffer[y * srcPitch], rowBytes);
-	}
+	sysBuffer.Present(mappedSysBufferTexture.RowPitch,
+		reinterpret_cast<BYTE*>(mappedSysBufferTexture.pData));
 	// release the adapter memory
 	pImmediateContext->Unmap(pSysBufferTexture.Get(), 0u);
 
@@ -271,21 +257,56 @@ void Graphics::EndFrame()
 	// flip back/front buffers
 	if (FAILED(hr = pSwapChain->Present(1u, 0u)))
 	{
-		if (hr == DXGI_ERROR_DEVICE_REMOVED)
-		{
-			throw My_GFX_EXCEPTION(pDevice->GetDeviceRemovedReason(), L"Presenting back buffer [device removed]");
-		}
-		else
-		{
-			throw My_GFX_EXCEPTION(hr, L"Presenting back buffer");
-		}
+		throw MY_GFX_EXCEPTION(hr, L"Presenting back buffer");
 	}
 }
 
 void Graphics::BeginFrame()
 {
-	// clear the sysbuffer
-	memset(pSysBuffer, 0u, sizeof(Color) * Graphics::ScreenHeight * Graphics::ScreenWidth);
+	sysBuffer.Clear(Colors::Red);
+}
+
+
+//////////////////////////////////////////////////
+//           Graphics Exception
+Graphics::Exception::Exception(HRESULT hr, const std::wstring& note, const wchar_t* file, unsigned int line)
+	:
+	MyException(file, line, note),
+	hr(hr)
+{}
+
+std::wstring Graphics::Exception::GetFullMessage() const
+{
+	const std::wstring empty = L"";
+	const std::wstring errorName = GetErrorName();
+	const std::wstring errorDesc = GetErrorDescription();
+	const std::wstring& note = GetNote();
+	const std::wstring location = GetLocation();
+	return    (!errorName.empty() ? std::wstring(L"Error: ") + errorName + L"\n"
+		: empty)
+		+ (!errorDesc.empty() ? std::wstring(L"Description: ") + errorDesc + L"\n"
+			: empty)
+		+ (!note.empty() ? std::wstring(L"Note: ") + note + L"\n"
+			: empty)
+		+ (!location.empty() ? std::wstring(L"Location: ") + location
+			: empty);
+}
+
+std::wstring Graphics::Exception::GetErrorName() const
+{
+	return DXGetErrorString(hr);
+}
+
+std::wstring Graphics::Exception::GetErrorDescription() const
+{
+	std::array<wchar_t, 512> wideDescription;
+	DXGetErrorDescription(hr, wideDescription.data(), wideDescription.size());
+	return wideDescription.data();
+}
+
+std::wstring Graphics::Exception::GetExceptionType() const
+{
+	return L"My Graphics Exception";
 }
 
 void Graphics::DrawLine(float x1, float y1, float x2, float y2, Color c)
@@ -339,56 +360,4 @@ void Graphics::DrawLine(float x1, float y1, float x2, float y2, Color c)
 			PutPixel(int(x2), int(y2), c);
 		}
 	}
-}
-
-void Graphics::PutPixel(int x, int y, Color c)
-{
-	assert(x >= 0);
-	assert(x < int(Graphics::ScreenWidth));
-	assert(y >= 0);
-	assert(y < int(Graphics::ScreenHeight));
-	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
-}
-
-
-//////////////////////////////////////////////////
-//           Graphics Exception
-Graphics::Exception::Exception(HRESULT hr, const std::wstring& note, const wchar_t* file, unsigned int line)
-	:
-	MyException(file, line, note),
-	hr(hr)
-{}
-
-std::wstring Graphics::Exception::GetFullMessage() const
-{
-	const std::wstring empty = L"";
-	const std::wstring errorName = GetErrorName();
-	const std::wstring errorDesc = GetErrorDescription();
-	const std::wstring& note = GetNote();
-	const std::wstring location = GetLocation();
-	return    (!errorName.empty() ? std::wstring(L"Error: ") + errorName + L"\n"
-		: empty)
-		+ (!errorDesc.empty() ? std::wstring(L"Description: ") + errorDesc + L"\n"
-			: empty)
-		+ (!note.empty() ? std::wstring(L"Note: ") + note + L"\n"
-			: empty)
-		+ (!location.empty() ? std::wstring(L"Location: ") + location
-			: empty);
-}
-
-std::wstring Graphics::Exception::GetErrorName() const
-{
-	return DXGetErrorString(hr);
-}
-
-std::wstring Graphics::Exception::GetErrorDescription() const
-{
-	std::array<wchar_t, 512> wideDescription;
-	DXGetErrorDescription(hr, wideDescription.data(), wideDescription.size());
-	return wideDescription.data();
-}
-
-std::wstring Graphics::Exception::GetExceptionType() const
-{
-	return L"My Graphics Exception";
 }
