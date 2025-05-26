@@ -5,7 +5,8 @@
 App::App(MainWindow& wnd)
 	:
 	wnd(wnd),
-	gfx(wnd)
+	gfx(wnd),
+	cube(1.0f)
 {
 }
 
@@ -25,9 +26,7 @@ void App::UpdateModel()
 #include "Cube.h"
 void App::ComposeFrame()
 {
-	CubeScreenTransformer cst;
-	Cube c(1.0f);
-	auto lines = c.GetLines();
+	auto lines = cube.GetLines();
 	for (auto& v : lines.vertices)
 	{
 		cst.Transform(v);

@@ -1,6 +1,8 @@
 #pragma once
 #include "Graphics.h"
 #include "Vec2.h"
+#include "CubeScreenTransformer.h"
+#include "Cube.h"
 
 class App
 {
@@ -20,5 +22,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  Moji Parametri              */
+	CubeScreenTransformer cst;
+	Cube cube;
 	/********************************/
 };
