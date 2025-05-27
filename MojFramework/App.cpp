@@ -2,6 +2,8 @@
 #include "App.h"
 #include "SolidCubeScene.h"
 #include "CubeOrderScene.h"
+#include "ConHexScene.h"
+#include "ConHexWireScene.h"
 
 
 App::App(MainWindow& wnd)
@@ -11,6 +13,8 @@ App::App(MainWindow& wnd)
 {
 	scenes.push_back(std::make_unique<SolidCubeScene>()); 
 	scenes.push_back(std::make_unique<CubeOrderScene>());
+	scenes.push_back(std::make_unique<ConHexScene>());
+	scenes.push_back(std::make_unique<ConHexWireScene>());
 	curScene = scenes.begin();
 }
 

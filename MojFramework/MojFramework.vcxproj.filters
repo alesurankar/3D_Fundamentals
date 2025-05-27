@@ -122,6 +122,15 @@
     <ClInclude Include="CubeOrderScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ConHexScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConHexWireScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConcaveHexahedron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MojFramework.rc">
