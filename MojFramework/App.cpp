@@ -58,6 +58,20 @@ void App::UpdateModel()
 
 void App::ComposeFrame()
 {
+	const Color colors[12] = {
+		   Colors::White,
+		   Colors::Blue,
+		   Colors::Cyan,
+		   Colors::Gray,
+		   Colors::Green,
+		   Colors::Magenta,
+		   Colors::LightGray,
+		   Colors::Red,
+		   Colors::Yellow,
+		   Colors::White,
+		   Colors::Blue,
+		   Colors::Cyan
+	};
 	auto triangles = cube.GetTriangles();
 	const Mat3 rot =
 		Mat3::RotationX(theta_x) *
@@ -73,6 +87,7 @@ void App::ComposeFrame()
 		end = triangles.indices.cend();
 		i != end; std::advance(i, 3))
 	{
-		gfx.DrawTriangle(triangles.vertices[*i], triangles.vertices[*std::next(i)], triangles.vertices[*std::next(i, 2)], Colors::White);
+		gfx.DrawTriangle(triangles.vertices[*i], triangles.vertices[*std::next(i)], triangles.vertices[*std::next(i, 2)],
+			colors[std::distance(triangles.indices.cbegin(), i) / 3]);
 	}
 }
