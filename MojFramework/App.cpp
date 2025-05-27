@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "App.h"
 #include "SolidCubeScene.h"
+#include "CubeOrderScene.h"
 
 
 App::App(MainWindow& wnd)
@@ -8,7 +9,8 @@ App::App(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
-	scenes.push_back(std::make_unique<SolidCubeScene>());
+	scenes.push_back(std::make_unique<SolidCubeScene>()); 
+	scenes.push_back(std::make_unique<CubeOrderScene>());
 	curScene = scenes.begin();
 }
 
