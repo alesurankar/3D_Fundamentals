@@ -1,13 +1,6 @@
 #include "MainWindow.h"
 #include "App.h"
-#include "SolidCubeScene.h"
-#include "CubeOrderScene.h"
-#include "ConHexScene.h"
-#include "ConHexWireScene.h"
-#include "XMutualScene.h"
-#include "TexCubeScene.h"
-#include "TexWrapCubeScene.h"
-#include "FoldedCubeScene.h"
+#include "CubeSkinScene.h"
 #include <sstream>
 
 
@@ -16,16 +9,7 @@ App::App(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
-	scenes.push_back(std::make_unique<SolidCubeScene>()); 
-	scenes.push_back(std::make_unique<CubeOrderScene>());
-	scenes.push_back(std::make_unique<ConHexScene>());
-	scenes.push_back(std::make_unique<ConHexWireScene>());
-	scenes.push_back(std::make_unique<XMutualScene>());
-	scenes.push_back(std::make_unique<TexCubeScene>());
-	scenes.push_back(std::make_unique<TexCubeScene>(2.0f));
-	scenes.push_back(std::make_unique<TexWrapCubeScene>(2.0f));
-	scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
-	scenes.push_back(std::make_unique<FoldedCubeScene>());
+	scenes.push_back(std::make_unique<CubeSkinScene>(gfx, L"images\\office_skin.jpg"));
 	curScene = scenes.begin();
 	OutputSceneName();
 }
@@ -80,5 +64,5 @@ void App::OutputSceneName() const
 
 void App::ComposeFrame()
 {
-	(*curScene)->Draw(gfx);
+	(*curScene)->Draw();
 }
