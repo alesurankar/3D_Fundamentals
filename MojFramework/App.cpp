@@ -6,6 +6,7 @@
 #include "ConHexWireScene.h"
 #include "XMutualScene.h"
 #include "TexCubeScene.h"
+#include "TexWrapCubeScene.h"
 
 
 App::App(MainWindow& wnd)
@@ -19,6 +20,7 @@ App::App(MainWindow& wnd)
 	scenes.push_back(std::make_unique<ConHexWireScene>());
 	scenes.push_back(std::make_unique<XMutualScene>());
 	scenes.push_back(std::make_unique<TexCubeScene>());
+	scenes.push_back(std::make_unique<TexWrapCubeScene>());
 	curScene = scenes.begin();
 }
 

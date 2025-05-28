@@ -143,6 +143,9 @@
     <ClInclude Include="TexCubeScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TexWrapCubeScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MojFramework.rc">
