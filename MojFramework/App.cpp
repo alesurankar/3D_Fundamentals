@@ -7,6 +7,7 @@
 #include "XMutualScene.h"
 #include "TexCubeScene.h"
 #include "TexWrapCubeScene.h"
+#include "FoldedCubeScene.h"
 #include <sstream>
 
 
@@ -24,6 +25,7 @@ App::App(MainWindow& wnd)
 	scenes.push_back(std::make_unique<TexCubeScene>(2.0f));
 	scenes.push_back(std::make_unique<TexWrapCubeScene>(2.0f));
 	scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
+	scenes.push_back(std::make_unique<FoldedCubeScene>());
 	curScene = scenes.begin();
 	OutputSceneName();
 }
