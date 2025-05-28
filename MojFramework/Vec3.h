@@ -5,7 +5,8 @@ template <typename T>
 class _Vec3 : public _Vec2<T>
 {
 public:
-	_Vec3() {}
+	_Vec3() 
+	{}
 	_Vec3(T x, T y, T z)
 		:
 		_Vec2(x, y),
@@ -115,6 +116,10 @@ public:
 	bool	operator!=(const _Vec3& rhs) const
 	{
 		return !(*this == rhs);
+	}
+	_Vec3	InterpolateTo(const _Vec3& dest, T alpha) const
+	{
+		return *this + (dest - *this) * alpha;
 	}
 public:
 	T z;
