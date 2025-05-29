@@ -117,6 +117,8 @@
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="GDIPlusManager.h" />
+    <ClInclude Include="GeometryFlatEffect.h" />
+    <ClInclude Include="GeometryFlatScene.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IndexedLineList.h" />
     <ClInclude Include="IndexedTriangleList.h" />

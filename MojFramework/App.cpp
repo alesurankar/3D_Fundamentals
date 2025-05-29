@@ -8,6 +8,7 @@
 #include "CubeVertexPositionColorScene.h"
 #include "CubeSolidGeometryScene.h"
 #include "CubeFlatIndependentScene.h"
+#include "GeometryFlatScene.h"
 #include <sstream>
 
 
@@ -16,6 +17,7 @@ App::App(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
+	scenes.push_back(std::make_unique<GeometryFlatScene>(gfx, Cube::GetPlain<GeometryFlatScene::Vertex>()));
 	scenes.push_back(std::make_unique<CubeFlatIndependentScene>(gfx));
 	scenes.push_back(std::make_unique<CubeSolidGeometryScene>(gfx));
 	scenes.push_back(std::make_unique<CubeVertexPositionColorScene>(gfx));
