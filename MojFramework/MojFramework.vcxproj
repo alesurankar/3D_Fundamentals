@@ -106,6 +106,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeScreenTransformer.h" />
     <ClInclude Include="CubeSkinScene.h" />
+    <ClInclude Include="CubeVertexColorScene.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="GDIPlusManager.h" />
@@ -129,6 +130,7 @@
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
+    <ClInclude Include="VertexColorEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MojFramework.rc" />

@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "App.h"
 #include "CubeSkinScene.h"
+#include "CubeVertexColorScene.h"
 #include <sstream>
 
 
@@ -10,6 +11,7 @@ App::App(MainWindow& wnd)
 	gfx(wnd)
 {
 	scenes.push_back(std::make_unique<CubeSkinScene>(gfx, L"images\\office_skin.jpg"));
+	scenes.push_back(std::make_unique<CubeVertexColorScene>(gfx));
 	curScene = scenes.begin();
 	OutputSceneName();
 }
