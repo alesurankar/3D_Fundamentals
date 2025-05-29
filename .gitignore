@@ -14,6 +14,8 @@
 *.userprefs
 
 # Mono auto generated files
+
+
 mono_crash.*
 
 # Build results
@@ -361,3 +363,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# .obj 3d model files unignore
+!Engine/models/*.obj
