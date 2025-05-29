@@ -6,6 +6,7 @@
 #include "DoubleCubeScene.h"
 #include "VertexWaveScene.h"
 #include "CubeVertexPositionColorScene.h"
+#include "CubeSolidGeometryScene.h"
 #include <sstream>
 
 
@@ -14,6 +15,7 @@ App::App(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
+	scenes.push_back(std::make_unique<CubeSolidGeometryScene>(gfx));
 	scenes.push_back(std::make_unique<CubeVertexPositionColorScene>(gfx));
 	scenes.push_back(std::make_unique<VertexWaveScene>(gfx));
 	scenes.push_back(std::make_unique<DoubleCubeScene>(gfx));
