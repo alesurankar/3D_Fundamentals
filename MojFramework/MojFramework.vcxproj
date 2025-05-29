@@ -125,6 +125,7 @@
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="MyWin.h" />
     <ClInclude Include="Pipeline.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
@@ -135,6 +136,8 @@
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="VertexColorEffect.h" />
+    <ClInclude Include="VertexWaveScene.h" />
+    <ClInclude Include="WaveVertexTextureEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MojFramework.rc" />
