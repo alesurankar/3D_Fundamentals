@@ -206,6 +206,12 @@
     <ClInclude Include="GouraudEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GouraudPointScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GouraudPointEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MojFramework.rc">
