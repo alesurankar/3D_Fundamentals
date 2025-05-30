@@ -1,7 +1,7 @@
 #pragma once
-
 #include <limits>
 #include <cassert>
+
 
 class ZBuffer
 {
@@ -49,7 +49,7 @@ public:
 		}
 		return false;
 	}
-private:
+public:
 	int width;
 	int height;
 	float* pBuffer = nullptr;
