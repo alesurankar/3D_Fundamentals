@@ -45,6 +45,12 @@
     <ClCompile Include="GDIPlusManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FrameTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tiny_obj_loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainWindow.h">
@@ -116,40 +122,79 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SolidCubeScene.h">
+    <ClInclude Include="CubeFlatIndependentScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CubeOrderScene.h">
+    <ClInclude Include="CubeSkinScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConHexScene.h">
+    <ClInclude Include="CubeSolidGeometryScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConHexWireScene.h">
+    <ClInclude Include="CubeSolidScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConcaveHexahedron.h">
+    <ClInclude Include="CubeVertexColorScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XQuads.h">
+    <ClInclude Include="CubeVertexPositionColorScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XMutualScene.h">
+    <ClInclude Include="DefaultGeometryShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TexVertex.h">
+    <ClInclude Include="DefaultVertexShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TexCubeScene.h">
+    <ClInclude Include="DoubleCubeScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TexWrapCubeScene.h">
+    <ClInclude Include="FrameTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FoldedCubeScene.h">
+    <ClInclude Include="GeometryFlatEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CubeFolded.h">
+    <ClInclude Include="GeometryFlatScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidGeometryEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexColorEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexFlatEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexPositionColorEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexWaveScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveVertexTextureEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Miniball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
