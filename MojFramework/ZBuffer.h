@@ -49,7 +49,15 @@ public:
 		}
 		return false;
 	}
-public:
+	int GetWidth() const
+	{
+		return width;
+	}
+	int GetHeight() const
+	{
+		return height;
+	}
+private:
 	int width;
 	int height;
 	float* pBuffer = nullptr;

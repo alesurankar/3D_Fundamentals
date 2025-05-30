@@ -23,18 +23,14 @@ public:
 public:
 	Pipeline(Graphics& gfx)
 		:
-		Pipeline(gfx, std::make_shared<ZBuffer>(Graphics::ScreenWidth, Graphics::ScreenHeight))
+		Pipeline(gfx, std::make_shared<ZBuffer>(gfx.ScreenWidth, gfx.ScreenHeight))
 	{}
-	Pipeline(Graphics& gfx, std::shared_ptr<ZBuffer> pZb)
+	Pipeline(Graphics& gfx, std::shared_ptr<ZBuffer> pZb_in)
 		:
 		gfx(gfx),
-		pZb(std::move(pZb))
+		pZb(std::move(pZb_in))
 	{
-		if (!this->pZb)
-		{
-			throw std::runtime_error("ZBuffer pointer is null.");
-		}
-		assert(this->pZb->height == Graphics::ScreenHeight && this->pZb->width == Graphics::ScreenWidth);
+		assert(pZb->GetHeight() == gfx.ScreenHeight && pZb->GetWidth() == gfx.ScreenWidth);
 	}
 	void Draw(const IndexedTriangleList<Vertex>& triList)
 	{
