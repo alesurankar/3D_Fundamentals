@@ -120,7 +120,9 @@
     <ClInclude Include="GDIPlusManager.h" />
     <ClInclude Include="GeometryFlatEffect.h" />
     <ClInclude Include="GeometryFlatScene.h" />
+    <ClInclude Include="GouraudEffect.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="GouraudScene.h" />
     <ClInclude Include="IndexedLineList.h" />
     <ClInclude Include="IndexedTriangleList.h" />
     <ClInclude Include="Keyboard.h" />
