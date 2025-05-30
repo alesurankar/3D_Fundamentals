@@ -9,6 +9,7 @@
 #include "CubeSolidGeometryScene.h"
 #include "CubeFlatIndependentScene.h"
 #include "GeometryFlatScene.h"
+#include "Sphere.h"
 #include <sstream>
 
 
@@ -17,6 +18,7 @@ App::App(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
+	scenes.push_back(std::make_unique<GeometryFlatScene>(gfx, Sphere::GetPlain<GeometryFlatScene::Vertex>()));
 	scenes.push_back(std::make_unique<VertexWaveScene>(gfx));
 	scenes.push_back(std::make_unique<GeometryFlatScene>(gfx,
 		IndexedTriangleList<GeometryFlatScene::Vertex>::Load("models\\character_1.obj")));
