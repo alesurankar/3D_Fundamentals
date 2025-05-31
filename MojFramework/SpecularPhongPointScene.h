@@ -92,6 +92,7 @@ public:
 	virtual void Draw() override
 	{
 		pipeline.BeginFrame();
+		const auto proj = Mat4::Projection(2.0f, 2.0f, 1.0f, 10.0f);
 		// generate rotation matrix from euler angles
 		// translation from offset
 		const Mat3 rot =
@@ -100,12 +101,13 @@ public:
 			Mat3::RotationZ(theta_z);
 		const Vec3 trans = { 0.0f,0.0f,offset_z };
 		// set pipeline transform
-		pipeline.effect.vs.BindTransformation(
+		pipeline.effect.vs.BindWorld(
 			Mat4::RotationX(theta_x) *
 			Mat4::RotationY(theta_y) *
 			Mat4::RotationZ(theta_z) *
 			Mat4::Translation(0.0f, 0.0f, offset_z)
 		);
+		pipeline.effect.vs.BindProjection(proj);
 		pipeline.effect.ps.SetLightPosition({ lpos_x,lpos_y,lpos_z });
 		// render triangles
 		pipeline.Draw(itlist);
@@ -113,8 +115,8 @@ public:
 		// draw light indicator with different pipeline
 		// don't call beginframe on this pipeline b/c wanna keep zbuffer contents
 		// (don't like this assymetry but we'll live with it for now)
-		liPipeline.effect.vs.BindTranslation({ lpos_x,lpos_y,lpos_z });
-		liPipeline.effect.vs.BindRotation(Mat3::Identity());
+		liPipeline.effect.vs.BindWorld(Mat4::Translation(lpos_x, lpos_y, lpos_z));
+		liPipeline.effect.vs.BindProjection(proj);
 		liPipeline.Draw(lightIndicator);
 	}
 private:
