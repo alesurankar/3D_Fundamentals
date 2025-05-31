@@ -14,6 +14,11 @@ public:
 		_Vec3(x, y, z),
 		w(w)
 	{}
+	_Vec4(const _Vec3& v3, float w = 1.0f)
+		:
+		_Vec3(v3),
+		w(w)
+	{}
 	template <typename T2>
 	explicit operator _Vec4<T2>() const
 	{
@@ -50,7 +55,7 @@ public:
 		x = rhs.x;
 		y = rhs.y;
 		z = rhs.z;
-		z = rhs.w;
+		w = rhs.w;
 		return *this;
 	}
 	_Vec4& operator+=(const _Vec4& rhs)
@@ -58,7 +63,7 @@ public:
 		x += rhs.x;
 		y += rhs.y;
 		z += rhs.z;
-		z += rhs.w;
+		w += rhs.w;
 		return *this;
 	}
 	_Vec4& operator-=(const _Vec4& rhs)
@@ -66,7 +71,7 @@ public:
 		x -= rhs.x;
 		y -= rhs.y;
 		z -= rhs.z;
-		z -= rhs.w;
+		w -= rhs.w;
 		return *this;
 	}
 	//T		operator*( const _Vec4 &rhs ) const
@@ -86,6 +91,7 @@ public:
 		x *= rhs;
 		y *= rhs;
 		z *= rhs;
+		w *= rhs;
 		return *this;
 	}
 	_Vec4	operator*(const T& rhs) const
