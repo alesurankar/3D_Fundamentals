@@ -5,8 +5,7 @@ template <typename T>
 class _Vec2
 {
 public:
-	_Vec2() 
-	{}
+	_Vec2() = default;
 	_Vec2(T x, T y)
 		: 
 		x(x), 
@@ -18,11 +17,6 @@ public:
 		x(static_cast<T>(x)), 
 		y(static_cast<T>(y))
 	{}
-	_Vec2(const _Vec2& vect)
-		: 
-		_Vec2(vect.x, vect.y)
-	{}
-
 	template <typename T2>
 	explicit operator _Vec2<T2>() const
 	{

@@ -1,10 +1,10 @@
 #pragma once
-
 #include "Scene.h"
 #include "Cube.h"
-#include "Mat3.h"
+#include "Mat.h"
 #include "Pipeline.h"
 #include "SolidGeometryEffect.h"
+
 
 class CubeSolidGeometryScene : public Scene
 {

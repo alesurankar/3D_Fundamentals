@@ -5,6 +5,7 @@ This Framework is Cloned and modified from PlanetChili - chili_framework <http:/
 #include "MainWindow.h"
 #include "App.h"
 #include "MyException.h"
+#include "Mat.h"
 
 int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 {

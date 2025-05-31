@@ -1,13 +1,9 @@
 #pragma once
-
-#pragma once
-
-#pragma once
-
 #include "Scene.h"
 #include "Plane.h"
-#include "Mat3.h"
+#include "Mat.h"
 #include "WaveVertexTextureEffect.h"
+
 
 class VertexWaveScene : public Scene
 {
