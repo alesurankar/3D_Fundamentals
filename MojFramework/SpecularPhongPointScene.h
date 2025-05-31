@@ -92,7 +92,7 @@ public:
 	virtual void Draw() override
 	{
 		pipeline.BeginFrame();
-		const auto proj = Mat4::Projection(2.0f, 2.0f, 1.0f, 10.0f);
+		const auto proj = Mat4::Projection(2.66666f, 2.0f, 1.0f, 10.0f);
 		// generate rotation matrix from euler angles
 		// translation from offset
 		const Mat3 rot =
