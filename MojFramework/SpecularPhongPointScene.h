@@ -33,58 +33,108 @@ public:
 	}
 	virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override
 	{
+		// Forward/Backward movement
 		if (kbd.KeyIsPressed('W'))
 		{
 			cam_pos += Vec4{ 0.0f,0.0f,1.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
-		}
-		if (kbd.KeyIsPressed('A'))
-		{
-			cam_pos += Vec4{ -1.0f,0.0f,0.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
 		}
 		if (kbd.KeyIsPressed('S'))
 		{
 			cam_pos += Vec4{ 0.0f,0.0f,-1.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
 		}
+		if (lmb_down && rmb_down)
+		{
+			cam_pos += Vec4{ 0.0f,0.0f,1.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
+		}
+
+		// Camera yaw (turn left/right)
+		if (kbd.KeyIsPressed('A'))
+		{
+			cam_pos += Vec4{ -1.0f,0.0f,0.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
+		}
 		if (kbd.KeyIsPressed('D'))
 		{
 			cam_pos += Vec4{ 1.0f,0.0f,0.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
 		}
-		if (kbd.KeyIsPressed('C'))
-		{
-			cam_pos += Vec4{ 0.0f,1.0f,0.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
-		}
-			if (kbd.KeyIsPressed('Z'))
-			{
-				cam_pos += Vec4{ 0.0f,-1.0f,0.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
-			}
+
+		// Strafing (left/right movement)
 		if (kbd.KeyIsPressed('Q'))
 		{
-			cam_rot_inv = cam_rot_inv * Mat4::RotationZ(cam_roll_speed * dt);
+			cam_rot_inv = cam_rot_inv * Mat4::RotationY(cam_roll_speed * dt);
 		}
 		if (kbd.KeyIsPressed('E'))
 		{
-			cam_rot_inv = cam_rot_inv * Mat4::RotationZ(-cam_roll_speed * dt);
+			cam_rot_inv = cam_rot_inv * Mat4::RotationY(-cam_roll_speed * dt);
+		}
+
+		// Vertical movement (up/down)
+		if (kbd.KeyIsPressed(VK_SPACE))
+		{
+			cam_pos += Vec4{ 0.0f,1.0f,0.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
+		}
+		if (kbd.KeyIsPressed(VK_SHIFT))
+		{
+			cam_pos += Vec4{ 0.0f,-1.0f,0.0f,0.0f } *!cam_rot_inv * cam_speed * dt;
 		}
 
 		while (!mouse.IsEmpty())
 		{
+			
 			const auto e = mouse.Read();
 			switch (e.GetType())
 			{
 			case Mouse::Event::Type::LPress:
 				mt.Engage(e.GetPos());
+				if (!lmb_down)
+				{
+					mouseClickPosition = e.GetPos();
+				}
+				mouseHoldPosition = e.GetPos();
+				lmb_down = true;
 				break;
+
 			case Mouse::Event::Type::LRelease:
 				mt.Release();
+				lmb_down = false;
 				break;
+
+			case Mouse::Event::Type::RPress:
+				rmb_down = true;
+				break;
+
+			case Mouse::Event::Type::RRelease:
+				rmb_down = false;
+				break;
+
 			case Mouse::Event::Type::Move:
-				if (mt.Engaged())
+			{
+				const auto pos = e.GetPos();
+				if (mt.Engaged() && !rmb_down)
 				{
-					const auto delta = mt.Move(e.GetPos());
+					const auto delta = mt.Move(pos);
 					cam_rot_inv = cam_rot_inv
 						* Mat4::RotationY((float)-delta.x * htrack)
 						* Mat4::RotationX((float)-delta.y * vtrack);
 				}
+				else if (rmb_down)
+				{
+					if (!mt.Engaged()) mt.Engage(pos);
+					const auto delta = mt.Move(pos);
+					cam_rot_inv = cam_rot_inv
+						* Mat4::RotationY((float)-delta.x * htrack)
+						* Mat4::RotationX((float)-delta.y * vtrack);
+				}
+				break;
+			}
+
+			case Mouse::Event::Type::WheelUp:
+				// Zoom in
+				cam_pos += Vec4{ 0.0f, 0.0f, 1.0f, 0.0f } *!cam_rot_inv * cam_speed * 0.2f;
+				break;
+
+			case Mouse::Event::Type::WheelDown:
+				// Zoom out
+				cam_pos += Vec4{ 0.0f, 0.0f, -1.0f, 0.0f } *!cam_rot_inv * cam_speed * 0.2f;
 				break;
 			}
 		}
@@ -140,4 +190,8 @@ private:
 	float theta_z = 0.0f;
 	// light stuff
 	Vec4 l_pos = { 0.0f,0.0f,0.6f,1.0f };
+	bool lmb_down = false;
+	bool rmb_down = false;
+	Vei2 mouseHoldPosition = { 0,0 };
+	Vei2 mouseClickPosition = { 0,0 };
 };
