@@ -59,7 +59,7 @@ public:
 				(T)0.0,(T)0.0,(T)1.0
 			};
 		}
-		else if (S == 4)
+		else if constexpr(S == 4)
 		{
 			return {
 				(T)1.0,(T)0.0,(T)0.0,(T)0.0,
@@ -75,7 +75,7 @@ public:
 	}
 	static _Mat Scaling(T factor)
 	{
-		if constexpr (S == 3)
+		if constexpr(S == 3)
 		{
 			return{
 				factor,(T)0.0,(T)0.0,
@@ -83,7 +83,7 @@ public:
 				(T)0.0,(T)0.0,factor
 			};
 		}
-		else if (S == 4)
+		else if constexpr(S == 4)
 		{
 			return {
 				factor,(T)0.0,(T)0.0,(T)0.0,
@@ -110,7 +110,7 @@ public:
 				(T)0.0,    (T)0.0,   (T)1.0
 			};
 		}
-		else if (S == 4)
+		else if constexpr(S == 4)
 		{
 			return {
 				 cosTheta, sinTheta, (T)0.0,(T)0.0,
@@ -136,7 +136,7 @@ public:
 				 sinTheta, (T)0.0, cosTheta
 			};
 		}
-		else if (S == 4)
+		else if constexpr(S == 4)
 		{
 			return {
 				cosTheta, (T)0.0, -sinTheta,(T)0.0,
@@ -162,7 +162,7 @@ public:
 				(T)0.0,-sinTheta, cosTheta,
 			};
 		}
-		else if (S == 4)
+		else if constexpr(S == 4)
 		{
 			return {
 				(T)1.0, (T)0.0,   (T)0.0,  (T)0.0,
