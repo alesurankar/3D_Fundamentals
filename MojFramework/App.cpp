@@ -13,6 +13,7 @@
 #include "GouraudPointScene.h"
 #include "Sphere.h"
 #include "PhongPointScene.h"
+#include "SpecularPhongPointScene.h"
 #include <sstream>
 
 
@@ -21,6 +22,7 @@ App::App(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
+	scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx, IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\lamp_object.obj")));
 	scenes.push_back(std::make_unique<PhongPointScene>(gfx, IndexedTriangleList<PhongPointScene::Vertex>::LoadNormals("models\\lamp_object.obj")));
 	scenes.push_back(std::make_unique<PhongPointScene>(gfx, Plane::GetNormals<PhongPointScene::Vertex>(16)));
 	scenes.push_back(std::make_unique<GouraudPointScene>(gfx, Plane::GetNormals<GouraudPointScene::Vertex>(16)));
