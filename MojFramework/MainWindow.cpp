@@ -1,3 +1,6 @@
+/******************************************************************************************************
+This Framework is Cloned and modified from PlanetChili - chili_framework <http://www.planetchili.net>
+*******************************************************************************************************/
 #include "MainWindow.h"
 #include "Resource.h"
 #include "Graphics.h"

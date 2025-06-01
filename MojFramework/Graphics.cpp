@@ -1,3 +1,6 @@
+/******************************************************************************************************
+This Framework is Cloned and modified from PlanetChili - chili_framework <http://www.planetchili.net>
+*******************************************************************************************************/
 #include "MainWindow.h"
 #include "Graphics.h"
 #include "DXErr.h"
@@ -6,6 +9,7 @@
 #include <string>
 #include <array>
 #include <functional>
+
 
 // Ignore the intellisense error "cannot open source file" for .shh files.
 // They will be created during the build sequence before the preprocessor runs.

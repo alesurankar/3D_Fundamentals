@@ -1,4 +1,8 @@
+/******************************************************************************************************
+This Framework is Cloned and modified from PlanetChili - chili_framework <http://www.planetchili.net>
+*******************************************************************************************************/
 #include "Keyboard.h"
+
 
 bool Keyboard::KeyIsPressed(unsigned char keycode) const
 {

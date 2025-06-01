@@ -1,6 +1,7 @@
 #pragma once
 #include "MyMath.h"
 
+
 template <typename T>
 class _Vec2
 {

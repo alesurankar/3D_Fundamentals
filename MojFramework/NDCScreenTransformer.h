@@ -2,6 +2,7 @@
 #include "Vec3.h"
 #include "Graphics.h"
 
+
 class NDCScreenTransformer
 {
 public:

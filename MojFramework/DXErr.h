@@ -14,7 +14,6 @@
 // This version only supports UNICODE.
 
 #pragma once
-
 #include "MyWin.h"
 #include <sal.h>
 

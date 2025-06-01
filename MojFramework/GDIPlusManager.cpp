@@ -2,6 +2,8 @@
 #include "MyWin.h"
 #include "GDIPlusManager.h"
 #include <algorithm>
+
+
 namespace Gdiplus
 {
 	using std::min;

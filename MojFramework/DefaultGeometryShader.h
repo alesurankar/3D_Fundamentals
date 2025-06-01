@@ -1,6 +1,6 @@
 #pragma once
-
 #include "Triangle.h"
+
 
 template<class Vertex>
 class DefaultGeometryShader

@@ -2,6 +2,8 @@
 #include "MyWin.h"
 #include "Surface.h"
 #include "MyException.h"
+
+
 namespace Gdiplus
 {
 	using std::min;

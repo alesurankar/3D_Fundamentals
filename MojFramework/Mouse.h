@@ -2,6 +2,7 @@
 #include <queue>
 #include "Vec2.h"
 
+
 class Mouse
 {
 	friend class MainWindow;

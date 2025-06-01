@@ -1,6 +1,7 @@
 #pragma once
 #include "MyWin.h"
 
+
 class GDIPlusManager
 {
 public:

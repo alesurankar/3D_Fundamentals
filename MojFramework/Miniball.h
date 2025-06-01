@@ -1,35 +1,13 @@
-//    Copright (C) 1999-2013, Bernd Gaertner
-//    $Rev: 3581 $
-//
-//    This program is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-
-//    You should have received a copy of the GNU General Public License
-//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-//    Contact:
-//    --------
-//    Bernd Gaertner
-//    Institute of Theoretical Computer Science 
-//    ETH Zuerich
-//    CAB G31.1
-//    CH-8092 Zuerich, Switzerland
-//    http://www.inf.ethz.ch/personal/gaertner
-
+#pragma once
 #include <cassert>
 #include <algorithm>
 #include <list>
 #include <ctime>
 #include <limits>
 
-namespace Miniball {
+
+namespace Miniball 
+{
 
     // Global Functions
     // ================
@@ -60,7 +38,8 @@ namespace Miniball {
     // =================
 
     template <typename CoordAccessor>
-    class Miniball {
+    class Miniball 
+    {
     private:
         // types
         // The iterator type to go through the input points
@@ -233,7 +212,8 @@ namespace Miniball {
         delete[] z;
         delete[] q0;
         delete[] sqr_r;
-        for (int i = 0; i < d + 1; ++i) {
+        for (int i = 0; i < d + 1; ++i) 
+        {
             delete[] a[i];
             delete[] v[i];
             delete[] c[i];
@@ -285,10 +265,12 @@ namespace Miniball {
         NT e, max_e = nt0;
         // compute maximum absolute excess of support points
         for (SupportPointIterator it = support_points_begin();
-            it != support_points_end(); ++it) {
+            it != support_points_end(); ++it) 
+        {
             e = excess(*it);
             if (e < nt0) e = -e;
-            if (e > max_e) {
+            if (e > max_e) 
+            {
                 max_e = e;
             }
         }
