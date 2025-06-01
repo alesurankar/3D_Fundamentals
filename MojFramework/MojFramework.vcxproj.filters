@@ -179,8 +179,11 @@
     <ClInclude Include="Cube.h">
       <Filter>Header Files\ZZZZZZtest</Filter>
     </ClInclude>
-    <ClInclude Include="SolidCubeScene.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="CubeScene.h">
+      <Filter>Header Files\ZZZZZZtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline2.h">
+      <Filter>Header Files\ZZZZZZtest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,13 +1,14 @@
 #include "MainWindow.h"
 #include "App.h"
-#include "SolidCubeScene.h"
+#include "CubeScene.h"
 
 App::App(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd)
 {
-	scenes.push_back(std::make_unique<SolidCubeScene>());
+	//scenes.push_back(std::make_unique<SolidCubeScene>());
+	scenes.push_back(std::make_unique<CubeScene>(gfx, L"images\\office_skin.jpg"));
 	curScene = scenes.begin();
 }
 
@@ -28,5 +29,5 @@ void App::UpdateModel()
 
 void App::ComposeFrame()
 {
-	(*curScene)->Draw(gfx);
+	(*curScene)->Draw();
 }
