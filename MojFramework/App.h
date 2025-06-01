@@ -2,8 +2,8 @@
 #include "Graphics.h"
 #include <memory>
 #include <vector>
-#include "CubeScreenTransformer.h"
-#include "Cube.h"
+#include "Scene.h"
+#include "FrameTimer.h"
 
 class App
 {
@@ -23,12 +23,8 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  Moji Parametri              */
-	CubeScreenTransformer cst;
-	Cube cube;
-	static constexpr float dTheta = PI;
-	float offset_z = 2.0f;
-	float theta_x = 0.0f;
-	float theta_y = 0.0f;
-	float theta_z = 0.0f;
+	FrameTimer ft;
+	std::vector<std::unique_ptr<Scene>> scenes;
+	std::vector<std::unique_ptr<Scene>>::iterator curScene;
 	/********************************/
 };

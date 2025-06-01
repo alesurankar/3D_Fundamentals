@@ -179,6 +179,9 @@
     <ClInclude Include="Cube.h">
       <Filter>Header Files\ZZZZZZtest</Filter>
     </ClInclude>
+    <ClInclude Include="SolidCubeScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MojFramework.rc">

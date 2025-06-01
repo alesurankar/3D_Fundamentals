@@ -128,6 +128,7 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SolidCubeScene.h" />
     <ClInclude Include="SolidEffect.h" />
     <ClInclude Include="SpecularPhongPointEffect.h" />
     <ClInclude Include="SpecularPhongPointScene.h" />
