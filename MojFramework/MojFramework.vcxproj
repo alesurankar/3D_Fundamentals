@@ -105,6 +105,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Colors.h" />
+    <ClInclude Include="CubeScreenTransformer.h" />
     <ClInclude Include="MouseTracker.h" />
     <ClInclude Include="NDCScreenTransformer.h" />
     <ClInclude Include="DefaultGeometryShader.h" />

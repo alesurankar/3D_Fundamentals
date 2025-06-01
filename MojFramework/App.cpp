@@ -1,16 +1,11 @@
 #include "MainWindow.h"
 #include "App.h"
-#include "SpecularPhongPointScene.h"
-#include "IndexedTriangleList.h"
 
 App::App(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd)
 {
-	scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx, 
-			IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\0BJ6.obj")));
-	curScene = scenes.begin();
 }
 
 void App::Go()
@@ -23,11 +18,14 @@ void App::Go()
 
 void App::UpdateModel()
 {
-	const float dt = ft.Mark();
-	(*curScene)->Update(wnd.kbd, wnd.mouse, dt);
 }
 
 void App::ComposeFrame()
 {
-	(*curScene)->Draw();
+	Vec3 v0 = { 0.0f,0.5f,0.0f };
+	Vec3 v1 = { 0.5f,-0.5f,0.0f };
+	Vec3 v2 = { -0.5f,-0.5f,0.0f };
+	gfx.DrawLine(cst.GetTransformed(v0), cst.GetTransformed(v1), Colors::White);
+	gfx.DrawLine(cst.GetTransformed(v1), cst.GetTransformed(v2), Colors::White);
+	gfx.DrawLine(cst.GetTransformed(v2), cst.GetTransformed(v0), Colors::White);
 }

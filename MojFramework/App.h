@@ -2,8 +2,7 @@
 #include "Graphics.h"
 #include <memory>
 #include <vector>
-#include "Scene.h"
-#include "FrameTimer.h"
+#include "CubeScreenTransformer.h"
 
 class App
 {
@@ -23,8 +22,6 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  Moji Parametri              */
-	FrameTimer ft;
-	std::vector<std::unique_ptr<Scene>> scenes;
-	std::vector<std::unique_ptr<Scene>>::iterator curScene;
+	CubeScreenTransformer cst;
 	/********************************/
 };
