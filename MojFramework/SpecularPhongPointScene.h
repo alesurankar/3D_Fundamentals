@@ -33,6 +33,10 @@ public:
 	}
 	virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override
 	{
+		float clickCenter = (float)mouseClickPosition.x;
+		float mouseOffset = (float)mouseHoldPosition.x - clickCenter;
+		const float normalizedOffset = mouseOffset / clickCenter;
+		const float rotationAmount = cam_roll_speed * dt * normalizedOffset;
 		// Forward/Backward movement
 		if (kbd.KeyIsPressed('W'))
 		{
@@ -79,17 +83,12 @@ public:
 
 		while (!mouse.IsEmpty())
 		{
-			
 			const auto e = mouse.Read();
+			mouseHoldPosition = e.GetPos();
 			switch (e.GetType())
 			{
 			case Mouse::Event::Type::LPress:
-				mt.Engage(e.GetPos());
-				if (!lmb_down)
-				{
-					mouseClickPosition = e.GetPos();
-				}
-				mouseHoldPosition = e.GetPos();
+				mt.Engage(mouseHoldPosition);
 				lmb_down = true;
 				break;
 
@@ -99,27 +98,24 @@ public:
 				break;
 
 			case Mouse::Event::Type::RPress:
+				mt.Engage(mouseHoldPosition);
+				if (!rmb_down)
+				{
+					mouseClickPosition = e.GetPos();
+				}
 				rmb_down = true;
 				break;
 
 			case Mouse::Event::Type::RRelease:
+				mt.Release();
 				rmb_down = false;
 				break;
 
 			case Mouse::Event::Type::Move:
 			{
-				const auto pos = e.GetPos();
-				if (mt.Engaged() && !rmb_down)
+				if (rmb_down)
 				{
-					const auto delta = mt.Move(pos);
-					cam_rot_inv = cam_rot_inv
-						* Mat4::RotationY((float)-delta.x * htrack)
-						* Mat4::RotationX((float)-delta.y * vtrack);
-				}
-				else if (rmb_down)
-				{
-					if (!mt.Engaged()) mt.Engage(pos);
-					const auto delta = mt.Move(pos);
+					const auto delta = mt.Move(mouseHoldPosition);
 					cam_rot_inv = cam_rot_inv
 						* Mat4::RotationY((float)-delta.x * htrack)
 						* Mat4::RotationX((float)-delta.y * vtrack);

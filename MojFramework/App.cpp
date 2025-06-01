@@ -24,7 +24,7 @@ App::App(MainWindow& wnd)
 	gfx(wnd)
 {
 	scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx, TestTriangle::GetNormals<SpecularPhongPointScene::Vertex>()));
-	scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx, IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\obj2.obj")));
+	scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx, IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\0BJ6.obj")));
 	//scenes.push_back(std::make_unique<PhongPointScene>(gfx, IndexedTriangleList<PhongPointScene::Vertex>::LoadNormals("models\\lamp_object.obj")));
 	//scenes.push_back(std::make_unique<PhongPointScene>(gfx, Plane::GetNormals<PhongPointScene::Vertex>(16)));
 	//scenes.push_back(std::make_unique<GouraudPointScene>(gfx, Plane::GetNormals<GouraudPointScene::Vertex>(16)));
