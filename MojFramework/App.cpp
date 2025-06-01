@@ -1,10 +1,12 @@
 #include "MainWindow.h"
 #include "App.h"
+#include "Mat.h"
 
 App::App(MainWindow& wnd)
 	:
 	wnd(wnd),
-	gfx(wnd)
+	gfx(wnd),
+	cube(1.0f)
 {
 }
 
@@ -18,14 +20,58 @@ void App::Go()
 
 void App::UpdateModel()
 {
+	const float dt = 1.0f / 60.0f;
+	if (wnd.kbd.KeyIsPressed('Q'))
+	{
+		theta_x = wrap_angle(theta_x + dTheta * dt);
+	}
+	if (wnd.kbd.KeyIsPressed('W'))
+	{
+		theta_y = wrap_angle(theta_y + dTheta * dt);
+	}
+	if (wnd.kbd.KeyIsPressed('E'))
+	{
+		theta_z = wrap_angle(theta_z + dTheta * dt);
+	}
+	if (wnd.kbd.KeyIsPressed('A'))
+	{
+		theta_x = wrap_angle(theta_x - dTheta * dt);
+	}
+	if (wnd.kbd.KeyIsPressed('S'))
+	{
+		theta_y = wrap_angle(theta_y - dTheta * dt);
+	}
+	if (wnd.kbd.KeyIsPressed('D'))
+	{
+		theta_z = wrap_angle(theta_z - dTheta * dt);
+	}
+	if (wnd.kbd.KeyIsPressed('R'))
+	{
+		offset_z += 2.0f * dt;
+	}
+	if (wnd.kbd.KeyIsPressed('F'))
+	{
+		offset_z -= 2.0f * dt;
+	}
 }
 
 void App::ComposeFrame()
 {
-	Vec3 v0 = { 0.0f,0.5f,0.0f };
-	Vec3 v1 = { 0.5f,-0.5f,0.0f };
-	Vec3 v2 = { -0.5f,-0.5f,0.0f };
-	gfx.DrawLine(cst.GetTransformed(v0), cst.GetTransformed(v1), Colors::White);
-	gfx.DrawLine(cst.GetTransformed(v1), cst.GetTransformed(v2), Colors::White);
-	gfx.DrawLine(cst.GetTransformed(v2), cst.GetTransformed(v0), Colors::White);
+	auto lines = cube.GetLines();
+	const Mat3 rot =
+		Mat3::RotationX(theta_x) *
+		Mat3::RotationY(theta_y) *
+		Mat3::RotationZ(theta_z);
+	for (auto& v : lines.vertices)
+	{
+		v *= rot;
+		v += { 0.0f, 0.0f, offset_z };
+		cst.Transform(v);
+	}
+	for (auto i = lines.indices.cbegin(),
+		end = lines.indices.cend();
+		i != end; std::advance(i, 2))
+	{
+		gfx.DrawLine(lines.vertices[*i], lines.vertices[*std::next(i)], Colors::White);
+	}
 }

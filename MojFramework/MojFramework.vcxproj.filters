@@ -176,6 +176,12 @@
     <ClInclude Include="Pipeline.h">
       <Filter>Header Files\Draw</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\ZZZZZZtest</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexedLineList.h">
+      <Filter>Header Files\ZZZZZZtest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MojFramework.rc">
