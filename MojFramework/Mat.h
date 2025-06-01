@@ -65,7 +65,8 @@ public:
 	{
 		if constexpr (S == 3)
 		{
-			return {
+			return 
+			{
 				(T)1.0,(T)0.0,(T)0.0,
 				(T)0.0,(T)1.0,(T)0.0,
 				(T)0.0,(T)0.0,(T)1.0,
@@ -73,7 +74,8 @@ public:
 		}
 		else if constexpr(S == 4)
 		{
-			return {
+			return 
+			{
 				(T)1.0,(T)0.0,(T)0.0,(T)0.0,
 				(T)0.0,(T)1.0,(T)0.0,(T)0.0,
 				(T)0.0,(T)0.0,(T)1.0,(T)0.0,
@@ -89,7 +91,8 @@ public:
 	{
 		if constexpr(S == 3)
 		{
-			return{
+			return
+			{
 				factor,(T)0.0,(T)0.0,
 				(T)0.0,factor,(T)0.0,
 				(T)0.0,(T)0.0,factor,

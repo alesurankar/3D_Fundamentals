@@ -24,7 +24,7 @@ public:
 	{
 		return{ (T2)x,(T2)y,(T2)z,(T2)w };
 	}
-	_Vec4	operator-() const
+	_Vec4 operator-() const
 	{
 		return _Vec4(-x, -y, -z, -w);
 	}
@@ -52,11 +52,11 @@ public:
 		w -= rhs.w;
 		return *this;
 	}
-	_Vec4	operator+(const _Vec4& rhs) const
+	_Vec4 operator+(const _Vec4& rhs) const
 	{
 		return _Vec4(*this) += rhs;
 	}
-	_Vec4	operator-(const _Vec4& rhs) const
+	_Vec4 operator-(const _Vec4& rhs) const
 	{
 		return _Vec4(*this) -= rhs;
 	}
@@ -68,7 +68,7 @@ public:
 		w *= rhs;
 		return *this;
 	}
-	_Vec4	operator*(const T& rhs) const
+	_Vec4 operator*(const T& rhs) const
 	{
 		return _Vec4(*this) *= rhs;
 	}
@@ -80,15 +80,15 @@ public:
 		w /= rhs;
 		return *this;
 	}
-	_Vec4	operator/(const T& rhs) const
+	_Vec4 operator/(const T& rhs) const
 	{
 		return _Vec4(*this) /= rhs;
 	}
-	bool	operator==(const _Vec4& rhs) const
+	bool operator==(const _Vec4& rhs) const
 	{
 		return x == rhs.x && y == rhs.y && rhs.z == z && rhs.w == w;
 	}
-	bool	operator!=(const _Vec4& rhs) const
+	bool operator!=(const _Vec4& rhs) const
 	{
 		return !(*this == rhs);
 	}
@@ -102,7 +102,7 @@ public:
 		return *this;
 	}
 	// clamp to between 0.0 ~ 1.0
-	_Vec4	GetSaturated() const
+	_Vec4 GetSaturated() const
 	{
 		_Vec4 temp(*this);
 		temp.Saturate();
@@ -118,7 +118,7 @@ public:
 		return *this;
 	}
 	// x3 = x1 * x2 etc.
-	_Vec4	GetHadamard(const _Vec4& rhs) const
+	_Vec4 GetHadamard(const _Vec4& rhs) const
 	{
 		_Vec4 temp(*this);
 		temp.Hadamard(rhs);
