@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "Cube.h"
 #include "Mat.h"
 #include "Pipeline.h"
 #include "SpecularPhongPointEffect.h"

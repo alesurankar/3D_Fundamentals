@@ -24,28 +24,6 @@ public:
 	{
 		return{ (T2)x,(T2)y,(T2)z,(T2)w };
 	}
-	//T		LenSq() const
-	//{
-	//	return sq( *this );
-	//}
-	//T		Len() const
-	//{
-	//	return sqrt( LenSq() );
-	//}
-	//_Vec3&	Normalize()
-	//{
-	//	const T length = Len();
-	//	x /= length;
-	//	y /= length;
-	//	z /= length;
-	//	return *this;
-	//}
-	//_Vec3	GetNormalized() const
-	//{
-	//	_Vec3 norm = *this;
-	//	norm.Normalize();
-	//	return norm;
-	//}
 	_Vec4	operator-() const
 	{
 		return _Vec4(-x, -y, -z, -w);
@@ -74,10 +52,6 @@ public:
 		w -= rhs.w;
 		return *this;
 	}
-	//T		operator*( const _Vec4 &rhs ) const
-	//{
-	//	return x * rhs.x + y * rhs.y + z * rhs.z;
-	//}
 	_Vec4	operator+(const _Vec4& rhs) const
 	{
 		return _Vec4(*this) += rhs;
@@ -98,13 +72,6 @@ public:
 	{
 		return _Vec4(*this) *= rhs;
 	}
-	//_Vec4	operator%( const _Vec4& rhs ) const
-	//{
-	//	return _Vec4(
-	//		y * rhs.z - z * rhs.y,
-	//		z * rhs.x - x * rhs.z,
-	//		x * rhs.y - y * rhs.x );
-	//}
 	_Vec4& operator/=(const T& rhs)
 	{
 		x /= rhs;

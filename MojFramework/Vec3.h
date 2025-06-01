@@ -19,11 +19,11 @@ public:
 	{
 		return{ (T2)x,(T2)y,(T2)z };
 	}
-	T		LenSq() const
+	T LenSq() const
 	{
 		return sq(*this);
 	}
-	T		Len() const
+	T Len() const
 	{
 		return sqrt(LenSq());
 	}
@@ -35,13 +35,13 @@ public:
 		z /= length;
 		return *this;
 	}
-	_Vec3	GetNormalized() const
+	_Vec3 GetNormalized() const
 	{
 		_Vec3 norm = *this;
 		norm.Normalize();
 		return norm;
 	}
-	_Vec3	operator-() const
+	_Vec3 operator-() const
 	{
 		return _Vec3(-x, -y, -z);
 	}
@@ -66,15 +66,15 @@ public:
 		z -= rhs.z;
 		return *this;
 	}
-	T		operator*(const _Vec3& rhs) const
+	T operator*(const _Vec3& rhs) const
 	{
 		return x * rhs.x + y * rhs.y + z * rhs.z;
 	}
-	_Vec3	operator+(const _Vec3& rhs) const
+	_Vec3 operator+(const _Vec3& rhs) const
 	{
 		return _Vec3(*this) += rhs;
 	}
-	_Vec3	operator-(const _Vec3& rhs) const
+	_Vec3 operator-(const _Vec3& rhs) const
 	{
 		return _Vec3(*this) -= rhs;
 	}
@@ -85,11 +85,11 @@ public:
 		z *= rhs;
 		return *this;
 	}
-	_Vec3	operator*(const T& rhs) const
+	_Vec3 operator*(const T& rhs) const
 	{
 		return _Vec3(*this) *= rhs;
 	}
-	_Vec3	operator%(const _Vec3& rhs) const
+	_Vec3 operator%(const _Vec3& rhs) const
 	{
 		return _Vec3(
 			y * rhs.z - z * rhs.y,
@@ -103,15 +103,15 @@ public:
 		z /= rhs;
 		return *this;
 	}
-	_Vec3	operator/(const T& rhs) const
+	_Vec3 operator/(const T& rhs) const
 	{
 		return _Vec3(*this) /= rhs;
 	}
-	bool	operator==(const _Vec3& rhs) const
+	bool operator==(const _Vec3& rhs) const
 	{
 		return x == rhs.x && y == rhs.y && rhs.z == z;
 	}
-	bool	operator!=(const _Vec3& rhs) const
+	bool operator!=(const _Vec3& rhs) const
 	{
 		return !(*this == rhs);
 	}
@@ -122,7 +122,7 @@ public:
 		z = std::min(1.0f, std::max(0.0f, z));
 		return *this;
 	}
-	_Vec3	GetSaturated() const
+	_Vec3 GetSaturated() const
 	{
 		_Vec3 temp(*this);
 		temp.Saturate();
@@ -135,7 +135,7 @@ public:
 		z *= rhs.z;
 		return *this;
 	}
-	_Vec3	GetHadamard(const _Vec3& rhs) const
+	_Vec3 GetHadamard(const _Vec3& rhs) const
 	{
 		_Vec3 temp(*this);
 		temp.Hadamard(rhs);

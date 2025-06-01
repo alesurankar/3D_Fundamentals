@@ -145,7 +145,7 @@ private:
 			};
 		const auto Clip2 = [this](GSOut& v0, GSOut& v1, GSOut& v2)
 			{
-				// calculate alpha values for getting adjusted verticesAdd commentMore actions
+				// calculate alpha values for getting adjusted vertices
 				const float alpha0 = (-v0.pos.z) / (v2.pos.z - v0.pos.z);
 				const float alpha1 = (-v1.pos.z) / (v2.pos.z - v1.pos.z);
 				// interpolate to get v0a and v0b

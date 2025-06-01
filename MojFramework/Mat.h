@@ -97,7 +97,8 @@ public:
 		}
 		else if constexpr(S == 4)
 		{
-			return {
+			return 
+			{
 				factor,(T)0.0,(T)0.0,(T)0.0,
 				(T)0.0,factor,(T)0.0,(T)0.0,
 				(T)0.0,(T)0.0,factor,(T)0.0,
@@ -116,7 +117,8 @@ public:
 		const T cosTheta = cos(theta);
 		if constexpr (S == 3)
 		{
-			return{
+			return
+			{
 				 cosTheta, sinTheta, (T)0.0,
 				-sinTheta, cosTheta, (T)0.0,
 				(T)0.0,    (T)0.0,   (T)1.0,
@@ -124,7 +126,8 @@ public:
 		}
 		else if constexpr(S == 4)
 		{
-			return {
+			return 
+			{
 				 cosTheta, sinTheta, (T)0.0,(T)0.0,
 				-sinTheta, cosTheta, (T)0.0,(T)0.0,
 				(T)0.0,    (T)0.0,   (T)1.0,(T)0.0,
@@ -142,7 +145,8 @@ public:
 		const T cosTheta = cos(theta);
 		if constexpr (S == 3)
 		{
-			return{
+			return
+			{
 				 cosTheta, (T)0.0,-sinTheta,
 				 (T)0.0,   (T)1.0, (T)0.0,
 				 sinTheta, (T)0.0, cosTheta
@@ -150,7 +154,8 @@ public:
 		}
 		else if constexpr(S == 4)
 		{
-			return {
+			return 
+			{
 				cosTheta, (T)0.0, -sinTheta,(T)0.0,
 				(T)0.0,   (T)1.0, (T)0.0,   (T)0.0,
 				sinTheta, (T)0.0, cosTheta, (T)0.0,
@@ -168,7 +173,8 @@ public:
 		const T cosTheta = cos(theta);
 		if constexpr (S == 3)
 		{
-			return{
+			return
+			{
 				(T)1.0, (T)0.0,   (T)0.0,
 				(T)0.0, cosTheta, sinTheta,
 				(T)0.0,-sinTheta, cosTheta,
@@ -176,7 +182,8 @@ public:
 		}
 		else if constexpr(S == 4)
 		{
-			return {
+			return 
+			{
 				(T)1.0, (T)0.0,   (T)0.0,  (T)0.0,
 				(T)0.0, cosTheta, sinTheta,(T)0.0,
 				(T)0.0,-sinTheta, cosTheta,(T)0.0,
@@ -197,7 +204,8 @@ public:
 	{
 		if constexpr (S == 4)
 		{
-			return {
+			return 
+			{
 				(T)1.0,(T)0.0,(T)0.0,(T)0.0,
 				(T)0.0,(T)1.0,(T)0.0,(T)0.0,
 				(T)0.0,(T)0.0,(T)1.0,(T)0.0,
@@ -213,7 +221,8 @@ public:
 	{
 		if constexpr (S == 4)
 		{
-			return {
+			return 
+			{
 				(T)2.0 * n / w,	(T)0.0,			(T)0.0,				(T)0.0,
 				(T)0.0,			(T)2.0 * n / h,	(T)0.0,				(T)0.0,
 				(T)0.0,			(T)0.0,			f / (f - n),		(T)1.0,
@@ -232,7 +241,8 @@ public:
 			const auto fov_rad = fov * (T)PI / (T)180.0;
 			const auto w = (T)1.0f / std::tan(fov_rad / (T)2.0);
 			const auto h = w * ar;
-			return {
+			return 
+			{
 				w,		(T)0.0,	(T)0.0,				(T)0.0,
 				(T)0.0,	h,		(T)0.0,				(T)0.0,
 				(T)0.0,	(T)0.0,	f / (f - n),		(T)1.0,
@@ -258,7 +268,8 @@ _Vec3<T>& operator*=(_Vec3<T>& lhs, const _Mat<T, 3>& rhs)
 template<typename T>
 _Vec3<T> operator*(const _Vec3<T>& lhs, const _Mat<T, 3>& rhs)
 {
-	return{
+	return
+	{
 		lhs.x * rhs.elements[0][0] + lhs.y * rhs.elements[1][0] + lhs.z * rhs.elements[2][0],
 		lhs.x * rhs.elements[0][1] + lhs.y * rhs.elements[1][1] + lhs.z * rhs.elements[2][1],
 		lhs.x * rhs.elements[0][2] + lhs.y * rhs.elements[1][2] + lhs.z * rhs.elements[2][2]
@@ -274,7 +285,8 @@ _Vec4<T>& operator*=(_Vec4<T>& lhs, const _Mat<T, 4>& rhs)
 template<typename T>
 _Vec4<T> operator*(const _Vec4<T>& lhs, const _Mat<T, 4>& rhs)
 {
-	return{
+	return
+	{
 		lhs.x * rhs.elements[0][0] + lhs.y * rhs.elements[1][0] + lhs.z * rhs.elements[2][0] + lhs.w * rhs.elements[3][0],
 		lhs.x * rhs.elements[0][1] + lhs.y * rhs.elements[1][1] + lhs.z * rhs.elements[2][1] + lhs.w * rhs.elements[3][1],
 		lhs.x * rhs.elements[0][2] + lhs.y * rhs.elements[1][2] + lhs.z * rhs.elements[2][2] + lhs.w * rhs.elements[3][2],

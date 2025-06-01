@@ -24,7 +24,7 @@ void App::Go()
 
 void App::UpdateModel()
 {
-	const float dt = ft.CheckPoint();
+	const float dt = ft.Mark();
 	// cycle through scenes when tab is pressed
 	while (!wnd.kbd.KeyIsEmpty())
 	{
