@@ -29,11 +29,10 @@ public:
 	{
 		ProcessVertices(triList.vertices, triList.indices);
 	}
-	// needed to reset the z-buffer and tri idx after each frame
+	// needed to reset the z-buffer after each frame
 	void BeginFrame()
 	{
 		zb.Clear();
-		triangle_index = 0u;
 	}
 private:
 	// vertex processing function
@@ -68,14 +67,14 @@ private:
 			if ((v1.pos - v0.pos) % (v2.pos - v0.pos) * v0.pos <= 0.0f)
 			{
 				// process 3 vertices into a triangle
-				ProcessTriangle(v0, v1, v2);
+				ProcessTriangle(v0, v1, v2, i);
 			}
 		}
 	}
 	// triangle processing function
 	// passes 3 vertices to gs to generate triangle
 	// sends generated triangle to post-processing
-	void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2)
+	void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2, size_t triangle_index)
 	{
 		// generate triangle from 3 vertices using gs
 		// and send to post-processing
@@ -243,5 +242,4 @@ private:
 	Graphics& gfx;
 	CubeScreenTransformer cst;
 	ZBuffer zb;
-	unsigned int triangle_index;
 };
