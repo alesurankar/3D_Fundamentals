@@ -58,18 +58,34 @@ public:
 	}
 	virtual void Draw() override
 	{
-		// generate rotation matrix from euler angles
-		// translation from offset
-		const Mat3 rot =
-			Mat3::RotationX(theta_x) *
-			Mat3::RotationY(theta_y) *
-			Mat3::RotationZ(theta_z);
-		const Vec3 trans = { 0.0f,0.0f,offset_z };
-		// set pipeline transform
-		pipeline.BindRotation(rot);
-		pipeline.BindTranslation(trans);
-		// render triangles
-		pipeline.Draw(itlist);
+		pipeline.BeginFrame();
+		// draw fixed cube
+		{
+			// generate rotation matrix from euler angles
+			// rotate in opposition to mobile cube
+			const Mat3 rot =
+				Mat3::RotationX(-theta_x) *
+				Mat3::RotationY(-theta_y) *
+				Mat3::RotationZ(-theta_z);
+			// set pipeline transform
+			pipeline.BindRotation(rot);
+			pipeline.BindTranslation({ 0.0f,0.0f,2.0f });
+			// render triangles
+			pipeline.Draw(itlist);
+		}
+		// draw mobile cube
+		{
+			// generate rotation matrix from euler angles
+			const Mat3 rot =
+				Mat3::RotationX(theta_x) *
+				Mat3::RotationY(theta_y) *
+				Mat3::RotationZ(theta_z);
+			// set pipeline transform
+			pipeline.BindRotation(rot);
+			pipeline.BindTranslation({ 0.0f,0.0f,offset_z });
+			// render triangles
+			pipeline.Draw(itlist);
+		}
 	}
 private:
 	IndexedTriangleList<Vertex> itlist;
