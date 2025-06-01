@@ -3,12 +3,14 @@
 #include "CubeScene.h"
 #include "CubeVertexScene.h"
 #include "CubeSolidScene.h"
+//#include "SpecularPhongPointScene.h"
 
 App::App(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd)
 {
+	//scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx, IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\obj2.obj")));
 	//scenes.push_back(std::make_unique<SolidCubeScene>());
 	//scenes.push_back(std::make_unique<CubeScene>(gfx, L"images\\office_skin.jpg")); 
 	//scenes.push_back(std::make_unique<CubeVertexColorScene>(gfx));
@@ -28,7 +30,6 @@ void App::UpdateModel()
 {
 	const float dt = ft.Mark();
 	(*curScene)->Update(wnd.kbd, wnd.mouse, dt);
-	
 }
 
 void App::ComposeFrame()
