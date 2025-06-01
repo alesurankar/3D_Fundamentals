@@ -146,9 +146,6 @@
     <ClInclude Include="ZBuffer.h">
       <Filter>Header Files\Draw</Filter>
     </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Header Files\Draw</Filter>
-    </ClInclude>
     <ClInclude Include="Sphere.h">
       <Filter>Header Files\Draw</Filter>
     </ClInclude>
@@ -165,6 +162,9 @@
       <Filter>Header Files\Draw</Filter>
     </ClInclude>
     <ClInclude Include="SpecularPhongPointScene.h">
+      <Filter>Header Files\Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
       <Filter>Header Files\Draw</Filter>
     </ClInclude>
   </ItemGroup>

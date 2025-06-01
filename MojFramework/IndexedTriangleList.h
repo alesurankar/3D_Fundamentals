@@ -5,7 +5,6 @@
 #include "tiny_obj_loader.h"
 #include "Miniball.h"
 #include <fstream>
-#include <cctype>
 
 
 template<class T>
@@ -97,9 +96,9 @@ public:
 				std::swap(tl.indices.back(), *std::prev(tl.indices.end(), 2));
 			}
 		}
-
 		return tl;
 	}
+
 	static IndexedTriangleList<T> LoadNormals(const std::string& filename)
 	{
 		IndexedTriangleList<T> tl;
@@ -164,15 +163,6 @@ public:
 		tl.indices.reserve(mesh.indices.size());
 		for (size_t f = 0; f < mesh.num_face_vertices.size(); f++)
 		{
-			// make sure there are no non-triangle faces
-			if (mesh.num_face_vertices[f] != 3u)
-			{
-				std::stringstream ss;
-				ss << "LoadObj error face #" << f << " has "
-					<< mesh.num_face_vertices[f] << " vertices";
-				throw std::runtime_error(ss.str().c_str());
-			}
-
 			// load set of 3 indices for each face into OUR index std::vector
 			for (size_t vn = 0; vn < 3u; vn++)
 			{
@@ -208,7 +198,6 @@ public:
 				return &it->pos.x;
 			}
 		};
-
 		// solve the minimum bounding sphere
 		Miniball::Miniball<VertexAccessor> mb(3, vertices.cbegin(), vertices.cend());
 		// result is a pointer to float[3] (what a shitty fuckin interface)

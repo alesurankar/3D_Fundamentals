@@ -17,8 +17,6 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  Moje Funkcije               */
-	void CycleScenes();
-	void OutputSceneName() const;
 	/********************************/
 private:
 	MainWindow& wnd;
