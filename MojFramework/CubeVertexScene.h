@@ -3,25 +3,29 @@
 #include "Cube.h"
 #include "Mat.h"
 #include "Pipeline2.h"
-#include "TextureEffect.h"
-#include "SolidEffect2.h"
 #include "VertexColorEffect.h"
 
 
-// scene demonstrating skinned cube
-class CubeScene : public Scene
+class CubeVertexColorScene : public Scene
 {
 public:
-	typedef Pipeline<TextureEffect> Pipeline;
+	typedef Pipeline<VertexColorEffect> Pipeline;
 	typedef Pipeline::Vertex Vertex;
 public:
-	CubeScene(Graphics& gfx, const std::wstring& filename)
+	CubeVertexColorScene(Graphics& gfx)
 		:
-		itlist(Cube::GetSkinned<Vertex>()),
+		itlist(Cube::GetPlain<Vertex>()),
 		pipeline(gfx),
-		Scene("Textured Cube skinned using texture")
+		Scene("Colored cube vertex gradient scene")
 	{
-		pipeline.effect.ps.BindTexture(filename);
+		itlist.vertices[0].color = Vec3(Colors::Red);
+		itlist.vertices[1].color = Vec3(Colors::Green);
+		itlist.vertices[2].color = Vec3(Colors::Blue);
+		itlist.vertices[3].color = Vec3(Colors::Yellow);
+		itlist.vertices[4].color = Vec3(Colors::Cyan);
+		itlist.vertices[5].color = Vec3(Colors::Magenta);
+		itlist.vertices[6].color = Vec3(Colors::White);
+		itlist.vertices[7].color = Vec3(Colors::Black);
 	}
 	virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override
 	{
@@ -61,33 +65,18 @@ public:
 	virtual void Draw() override
 	{
 		pipeline.BeginFrame();
-		// draw fixed cube
-		{
-			// generate rotation matrix from euler angles
-			// rotate in opposition to mobile cube
-			const Mat3 rot =
-				Mat3::RotationX(-theta_x) *
-				Mat3::RotationY(-theta_y) *
-				Mat3::RotationZ(-theta_z);
-			// set pipeline transform
-			pipeline.effect.vs.BindRotation(rot);
-			pipeline.effect.vs.BindTranslation({ 0.0f,0.0f,2.0f });
-			// render triangles
-			pipeline.Draw(itlist);
-		}
-		// draw mobile cube
-		{
-			// generate rotation matrix from euler angles
-			const Mat3 rot =
-				Mat3::RotationX(theta_x) *
-				Mat3::RotationY(theta_y) *
-				Mat3::RotationZ(theta_z);
-			// set pipeline transform
-			pipeline.effect.vs.BindRotation(rot);
-			pipeline.effect.vs.BindTranslation({ 0.0f,0.0f,offset_z });
-			// render triangles
-			pipeline.Draw(itlist);
-		}
+		// generate rotation matrix from euler angles
+		// translation from offset
+		const Mat3 rot =
+			Mat3::RotationX(theta_x) *
+			Mat3::RotationY(theta_y) *
+			Mat3::RotationZ(theta_z);
+		const Vec3 trans = { 0.0f,0.0f,offset_z };
+		// set pipeline transform
+		pipeline.effect.vs.BindRotation(rot);
+		pipeline.effect.vs.BindTranslation(trans);
+		// render triangles
+		pipeline.Draw(itlist);
 	}
 private:
 	IndexedTriangleList<Vertex> itlist;

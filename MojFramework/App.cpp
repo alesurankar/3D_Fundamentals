@@ -1,6 +1,8 @@
 #include "MainWindow.h"
 #include "App.h"
 #include "CubeScene.h"
+#include "CubeVertexScene.h"
+#include "CubeSolidScene.h"
 
 App::App(MainWindow& wnd)
 	:
@@ -8,7 +10,9 @@ App::App(MainWindow& wnd)
 	gfx(wnd)
 {
 	//scenes.push_back(std::make_unique<SolidCubeScene>());
-	scenes.push_back(std::make_unique<CubeScene>(gfx, L"images\\office_skin.jpg"));
+	//scenes.push_back(std::make_unique<CubeScene>(gfx, L"images\\office_skin.jpg")); 
+	//scenes.push_back(std::make_unique<CubeVertexColorScene>(gfx));
+	scenes.push_back(std::make_unique<CubeSolidScene>(gfx));
 	curScene = scenes.begin();
 }
 
