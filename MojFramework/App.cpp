@@ -1,20 +1,15 @@
 #include "MainWindow.h"
 #include "App.h"
-#include "CubeScene.h"
-#include "CubeVertexScene.h"
-#include "CubeSolidScene.h"
-//#include "SpecularPhongPointScene.h"
+#include "SpecularPhongPointScene.h"
+
 
 App::App(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd)
 {
-	//scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx, IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\obj2.obj")));
-	//scenes.push_back(std::make_unique<SolidCubeScene>());
-	//scenes.push_back(std::make_unique<CubeScene>(gfx, L"images\\office_skin.jpg")); 
-	//scenes.push_back(std::make_unique<CubeVertexColorScene>(gfx));
-	scenes.push_back(std::make_unique<CubeSolidScene>(gfx));
+	scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx,
+		IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\0BJ6.obj")));
 	curScene = scenes.begin();
 }
 
