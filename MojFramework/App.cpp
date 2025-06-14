@@ -9,7 +9,7 @@ App::App(MainWindow& wnd)
 	gfx(wnd)
 {
 	scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx,
-		IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\0BJ6.obj")));
+		IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("models\\floor.obj")));
 	curScene = scenes.begin();
 }
 

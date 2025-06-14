@@ -24,7 +24,7 @@ public:
 		Scene("phong point shader scene free mesh")
 	{
 		itlist.AdjustToTrueCenter();
-		mod_pos.z = itlist.GetRadius() * 1.6f;
+		mod_pos.z = itlist.GetRadius() * 1.0f;
 		for (auto& v : lightIndicator.vertices)
 		{
 			v.color = Colors::White;

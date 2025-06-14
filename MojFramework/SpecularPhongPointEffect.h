@@ -192,7 +192,7 @@ public:
 		float constant_attenuation = 0.382f;
 		// specular
 		float specular_power = 30.0f;
-		float specular_intensity = 0.6f;
+		float specular_intensity = 1.2f;
 	};
 public:
 	VertexShader vs;

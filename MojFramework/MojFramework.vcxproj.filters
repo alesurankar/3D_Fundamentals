@@ -28,9 +28,6 @@
     <Filter Include="Header Files\Draw">
       <UniqueIdentifier>{526d6233-986c-4c12-a5a6-136c9150fe94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ZZZZZZtest">
-      <UniqueIdentifier>{f004ac2a-3cdd-4199-9450-4088f6cd1e1c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -170,20 +167,8 @@
     <ClInclude Include="Triangle.h">
       <Filter>Header Files\Draw</Filter>
     </ClInclude>
-    <ClInclude Include="CubeScreenTransformer.h">
-      <Filter>Header Files\ZZZZZZtest</Filter>
-    </ClInclude>
     <ClInclude Include="Pipeline.h">
       <Filter>Header Files\Draw</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files\ZZZZZZtest</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeScene.h">
-      <Filter>Header Files\ZZZZZZtest</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline2.h">
-      <Filter>Header Files\ZZZZZZtest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
